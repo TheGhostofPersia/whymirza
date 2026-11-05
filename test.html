@@ -1,0 +1,20 @@
+<!doctype html>
+<html dir="rtl"><body style="background:#0b0f1a;color:#fff;font-family:sans-serif;padding:20px">
+<h2>تست وای میرزا</h2>
+<div id="out">در حال تست...</div>
+<script src="assets/config.js"></script>
+<script>
+const out = document.getElementById('out');
+out.innerHTML = '۱. config.js لود شد.<br>';
+out.innerHTML += '۲. API_BASE = ' + (window.VM_CONFIG ? window.VM_CONFIG.API_BASE : 'تعریف نشده') + '<br>';
+fetch(window.VM_CONFIG.API_BASE, {
+  method: 'POST',
+  headers: {'Content-Type':'application/json'},
+  body: JSON.stringify({action:'profile', initData:'test'})
+}).then(r => r.text()).then(t => {
+  out.innerHTML += '۳. پاسخ سرور: ' + t.slice(0,200);
+}).catch(e => {
+  out.innerHTML += '۳. خطای اتصال: ' + e.message;
+});
+</script>
+</body></html>
